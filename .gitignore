@@ -1,0 +1,58 @@
+# .env file should be separate for each instance
+.env
+
+# Jetbrains IDEs
+.idea/*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+.hypothesis/
+
+
+# Django stuff:
+*.log
+local_settings.py
+
+# Sphinx documentation
+docs/_build/
+
+# celery beat schedule file
+celerybeat-schedule
+
+# KDE directory preferences
+.directory
+
+# Django and project-specific
+db.sqlite3*
+
+config.ini
