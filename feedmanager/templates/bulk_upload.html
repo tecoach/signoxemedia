@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/css/foundation-flex.min.css">
+  <title>Bulk-Upload Snippets</title>
+</head>
+<body>
+<div class="row align-center">
+  <div class="column large-6">
+    <h2 class="text-center">Bulk-upload snippets</h2>
+    <p class="lead">
+      Select a category, select files to upload and click on upload. Avoid uploading too many
+      files at once.
+    </p>
+    <form enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+      <label for="category">Select category for snippets:</label>
+      <select name="category" id="category" required>
+        {% for category in categories %}
+          <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}
+      </select>
+      {% if error %}
+        <pre class="callout alert">{{ error }}</pre>
+      {% endif %}
+      <div class="flex-container align-right align-justify justify-spaced">
+        <label class="button" for="snippets">Select files to upload</label>
+        <input type="file" id="snippets" name="snippets" multiple required class="show-for-sr">
+        <input type="submit" class="primary button" value="Upload">
+      </div>
+    </form>
+  </div>
+</div>
+<div class="row text-justify align-center">
+  <div class="columns large-9">
+    <p>
+      Image files will be uploaded as image snippets, and video files as video snippets. The
+      date and name for the snippet will be extracted from the snippet's file name. For
+      categories that don't need a date, the full file name (without extension) will be used as
+      the name of the snippet. Any underscores ( _ ) or dashes ( - ) will be replaced with a
+      single space.
+    </p>
+    <p>
+      For categories that do need a date, the file name must start with the date in ISO
+      format. For example:
+    </p>
+    <dl>
+      <dt>File: 2017-11-12_snippet-title.jpg</dt>
+      <dd>Snippet named "snippet title" dated 12<sup>th</sup> November 2017.</dd>
+      <dt>File: this-day-in-history.jpg</dt>
+      <dd>Snippet named "this day in history"</dd>
+    </dl>
+    <p>
+      For web snippets you need to place all your snippets in a single YAML format file. Here
+      is a sample with three snippets:
+    </p>
+    <blockquote>
+    <pre>
+---
+- title: test 1
+  date: 2017-11-23
+  content:
+    Finance Minister Arun Jaitley said Microsoft Founder Bill Gates
+    told him that digital economy will boom in India as over 100 crore Indians use
+    mobile phones and 109 crore have Aadhaar cards.
+- title: test 2
+  content:
+    Swiss watchmaker Jaeger-LeCoultre has made ''Atmos 568'', worth
+    INR19 lakh clock that uses only atmospheric pressure to run itself. The maker
+    claims the clock will show accurate time for almost 4,000 years.
+- title: test 3
+  content:
+    The soldiers fighting the World-War-1, ceased hostilities and
+    played football with the enemy troops on the Christmas day in 1914.
+    </pre>
+    </blockquote>
+    <p>
+      You can find out more about the YAML format in the
+      <a href="http://docs.ansible.com/ansible/YAMLSyntax.html">Ansible documentation</a>.
+      You can also use the <a href="http://www.yamllint.com/">YAML Lint tool</a> to check if
+      you have properly formatted your YAML file.
+    </p>
+  </div>
+</div>
+</body>
+</html>
