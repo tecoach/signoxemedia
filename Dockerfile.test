@@ -1,9 +1,0 @@
-FROM python:3.4
-ENV PYTHONUNBUFFERED 1
-RUN mkdir /app
-WORKDIR /app
-RUN apt-get update && apt-get install -y libmemcached-dev
-ADD requirements*.pip /app/
-RUN pip install --trusted-host 192.168.1.64 -i http://192.168.1.64:5555/simple/ -r requirements-test.pip
-ADD . /app/
-RUN py.test
