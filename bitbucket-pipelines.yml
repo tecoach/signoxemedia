@@ -1,0 +1,20 @@
+pipelines:
+  default:
+    - step:
+        name: Test on Python 3.6
+        image: python:3.6
+        caches:
+          - pip
+        script:
+          - apt-get update && apt-get install -y libmemcached-dev
+          - pip install -r requirements-test.pip
+          - py.test
+    - step:
+        name: Create release on Sentry
+        script:
+          - >
+            curl https://app.getsentry.com/api/0/projects/kshitij-sobti/signoxe-server/releases/
+            -u ${SENTRY_API_KEY}:
+            -X POST
+            -H "Content-Type:application/json"
+            -d "{\"version\":\"${BITBUCKET_COMMIT}\"}"
