@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Logging in...</title>
+    <script>
+        window.onload = function () {
+            const win = document.getElementById('token-reciever').contentWindow;
+            const auth = {
+                username: "{{ username }}",
+                token: "{{ token }}"
+            };
+            win.postMessage(JSON.stringify(auth), '*');
+        };
+    </script>
+</head>
+<body>
+<h1>Loggin in as {{ username }} ...</h1>
+<iframe id="token-reciever" src="{{ iframe_url }}" style="display: none" frameborder="0"></iframe>
+</body>
+</html>
